@@ -1,8 +1,3 @@
-"""
-@author: António Brito / Carlos Bragança
-(2025) objective: class University
-"""
-# Class University - generic version with inheritance
 from classes.gclass import Gclass
 import datetime
 class University(Gclass):
@@ -10,13 +5,9 @@ class University(Gclass):
     lst = list()
     pos = 0
     sortkey = ''
-    # Attribute names list, identifier attribute must be the first one and callled 'id'
     att = ['_id','_name','_creation_date']
-    # Class header title
     header = 'Universities'
-    # field description for use in, for example, input form
     des = ['Id','Name','Date of Creation']
-    # Constructor: Called when an object is instantiated
     def __init__(self, id, name, creation_date):
         super().__init__()
         # Object attributes
