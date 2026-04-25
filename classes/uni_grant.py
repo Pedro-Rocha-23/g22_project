@@ -1,4 +1,3 @@
-
 from classes.gclass import Gclass
 import datetime
 
