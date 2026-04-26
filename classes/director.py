@@ -1,5 +1,3 @@
-"""
-"""
 # Class Director - generic version with inheritance
 from classes.gclass import Gclass
 import datetime

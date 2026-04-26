@@ -16,11 +16,12 @@ class Grant(Gclass):
     # field description for use in, for example, input form
     des = ['Id','Title','Category']
     # Constructor: Called when an object is instantiated
-    def __init__(self, id, title, category):
+    def __init__(self, id, title, category, director_id):
         super().__init__()
         # Object attributes
         id = Grant.get_id(id)
         self._id = id
+        self._director_id=director_id
         self._title=title
         self._category=category
         # Add the new object to the dictionary of objects
@@ -28,6 +29,12 @@ class Grant(Gclass):
         # Add the id to the list of object ids
         Grant.lst.append(id)
     # id property getter method
+    @property
+    def director_id(self):
+        return self._director_id
+    @director_id.setter
+    def director_id(self, director_id):
+        self._director_id = director_id
     @property
     def id(self):
         return self._id

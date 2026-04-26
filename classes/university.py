@@ -14,11 +14,7 @@ class University(Gclass):
         id = University.get_id(id)
         self._id = id
         self._name = name
-<<<<<<< HEAD
-        self._creation_date = datetime.date.fromisoformat(creation_date)
-=======
         self._creation_date = datetime.datetime.strptime(creation_date, "%d/%m/%Y").date()
->>>>>>> 0ad8146e5dc649ed605c3687da682319f74d43be
         University.obj[id] = self
         University.lst.append(id)
     @property
