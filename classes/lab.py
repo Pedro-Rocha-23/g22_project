@@ -35,7 +35,6 @@ class Lab(Gclass):
     @property
     def university_id(self):
         return self._university_id
-
     @university_id.setter
     def university_id(self, university_id):
         self._university_id = university_id
