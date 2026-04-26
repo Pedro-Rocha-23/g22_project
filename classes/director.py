@@ -21,7 +21,10 @@ class Director(Gclass):
         id = Director.get_id(id)
         self._id = id
         self._director_name = director_name
-        self._dob = datetime.date.fromisoformat(dob)
+        try:
+            self._dob = datetime.datetime.strptime(dob, "%d/%m/%Y").date()
+        except:
+            self._dob = datetime.date.fromisoformat(dob)
         # Add the new object to the dictionary of objects
         Director.obj[id] = self
         # Add the id to the list of object ids
