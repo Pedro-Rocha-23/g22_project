@@ -1,7 +1,4 @@
-"""
-@author: António Brito / Carlos Bragança
-(2025) objective: class Person
-"""
+
 # Class Grant - generic version with inheritance
 from classes.gclass import Gclass
 class Grant(Gclass):
