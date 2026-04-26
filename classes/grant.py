@@ -56,6 +56,4 @@ class Grant(Gclass):
     @category.setter
     def category(self, category):
         self._category = category
-   
-
 
