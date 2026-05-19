@@ -4,7 +4,6 @@ import plotly.graph_objects as go
 import pandas as pd
 import sqlite3
 import webbrowser
-import os
 from pathlib import Path
 
 
@@ -280,9 +279,7 @@ class University(Gclass):
                 hoverinfo="skip",
                 showlegend=False
             )
-    
             fig = go.Figure(data=[treemap, escala])
-    
             fig.update_layout(
                 title={
                     "text": "Labs por Universidade<br><sub>Clica numa universidade para expandir e ver os labs</sub>",
@@ -295,7 +292,6 @@ class University(Gclass):
     
                 paper_bgcolor="#f2f2f2",
                 plot_bgcolor="#f2f2f2",
-    
                 xaxis=dict(
                     visible=False,
                     showgrid=False,
@@ -307,16 +303,10 @@ class University(Gclass):
                     zeroline=False
                 )
             )
-    
             fig.write_html(str(html_path))
-    
             webbrowser.open_new_tab(html_path.resolve().as_uri())
-
             print(" Treemap aberto no browser.")
-    
-    
             return df_universidades
-    
         except Exception as e:
             print(f"❌ Erro: {str(e)}")
             import traceback

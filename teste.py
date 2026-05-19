@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@author: António Brito / Carlos Bragança
+@author: Pedro Rocha
 (2021)
 #objective: Test classes based on generic class Gclass
 
@@ -11,7 +11,7 @@ db = 'g22_db.db'
  
 from classes.director import Director
 test_class = Director
-
+ob = '100;Antonio Silva;1966-03-12;'
 
 
 # from classes.grant import Grant
