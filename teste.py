@@ -18,15 +18,12 @@ ob = '100;Antonio Silva;1966-03-12;'
 # test_class = Grant
 
 
-
 # from classes.lab import Lab
 # test_class = Lab
 
 
-
 # from classes.uni_grant import Uni_grant
 # test_class = Uni_grant
-
 
 
 # from classes.university import University

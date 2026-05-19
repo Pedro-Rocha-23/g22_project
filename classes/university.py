@@ -216,9 +216,6 @@ class University(Gclass):
                         f"Universidade: {nome_uni}<br>"
                         f"Info: {lab_info}"
                     )
-    
-            
-    
             treemap = go.Treemap(
                 ids=ids,
                 labels=labels,
