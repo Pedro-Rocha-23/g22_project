@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Análises{% endblock %}
+
+{% block content %}
+<div class="main-card">
+
+  <div class="d-flex align-items-center mb-4 border-bottom pb-2">
+    <h4 class="mb-0 me-auto">
+      <i class="bi bi-bar-chart-fill me-2 text-primary"></i>Dashboard de Análises
+    </h4>
+    <a href="/" class="btn btn-sm btn-outline-secondary">
+      <i class="bi bi-arrow-left me-1"></i>Voltar
+    </a>
+  </div>
+
+  <!--
+    Cada {{ plot_div | safe }} é o bloco HTML+JS gerado pelo Plotly
+    com fig.to_html(full_html=False). O filtro | safe diz ao Jinja2
+    para não escapar as tags HTML — sem ele o gráfico não aparece.
+  -->
+
+  <!-- Linha 1: Labs por uni + Financiamento -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm p-2">
+        {{ plot_labs | safe }}
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm p-2">
+        {{ plot_funding | safe }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Linha 2: Grants por categoria + Evolução temporal -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-5">
+      <div class="card border-0 shadow-sm p-2">
+        {{ plot_categories | safe }}
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="card border-0 shadow-sm p-2">
+        {{ plot_timeline | safe }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Linha 3: Idades dos diretores -->
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm p-2">
+        {{ plot_ages | safe }}
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
