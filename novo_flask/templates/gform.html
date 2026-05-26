@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block title %}{{ header }}{% endblock %}
+
+{% block content %}
+<div class="main-card">
+
+  <!-- ── Título da secção ─────────────────────────────────────────────────── -->
+  <div class="d-flex align-items-center mb-3 border-bottom pb-2">
+    <h4 class="mb-0 me-auto"><i class="bi bi-table me-2 text-primary"></i>{{ header }}</h4>
+    <small class="text-muted">{{ total }} registo(s)</small>
+  </div>
+
+  <!-- ── Formulário ──────────────────────────────────────────────────────── -->
+  <!--
+    action="" submete para a rota actual (/gform/University, etc.)
+    O option viaja sempre como query-string (?option=save) para ser lido
+    com request.args.get('option') — igual ao padrão do professor.
+  -->
+  <form method="post" action="">
+
+    {% for i in range(att|length) %}
+      {% set field_name = att[i][1:] %}   {# remove o _ inicial: _name → name #}
+      {% set label      = des[i] %}
+      {% set value      = fields[field_name] %}
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label fw-semibold">{{ label }}</label>
+        <div class="col-sm-9">
+
+          {% if i == 0 %}
+            <!-- ID: sempre readonly -->
+            <input type="text" class="form-control" name="{{ field_name }}"
+                   value="{{ value }}" readonly>
+
+          {% elif field_name == 'university_id' and universities is defined %}
+            <!-- FK para University → dropdown -->
+            <select name="{{ field_name }}" class="form-select"
+                    {% if butshow == 'enabled' %}disabled{% endif %}>
+              {% for uid, uname in universities %}
+                <option value="{{ uid }}" {% if uid == value %}selected{% endif %}>
+                  {{ uname }}
+                </option>
+              {% endfor %}
+            </select>
+            <!-- Campo hidden garante que o valor é enviado mesmo com select disabled -->
+            {% if butshow == 'enabled' %}
+              <input type="hidden" name="{{ field_name }}" value="{{ value }}">
+            {% endif %}
+
+          {% elif field_name == 'director_id' and directors is defined %}
+            <!-- FK para Director → dropdown -->
+            <select name="{{ field_name }}" class="form-select"
+                    {% if butshow == 'enabled' %}disabled{% endif %}>
+              {% for did, dname in directors %}
+                <option value="{{ did }}" {% if did == value %}selected{% endif %}>
+                  {{ dname }}
+                </option>
+              {% endfor %}
+            </select>
+            {% if butshow == 'enabled' %}
+              <input type="hidden" name="{{ field_name }}" value="{{ value }}">
+            {% endif %}
+
+          {% else %}
+            <!-- Campo de texto normal -->
+            <input type="text" class="form-control" name="{{ field_name }}"
+                   value="{{ value }}"
+                   {% if butshow == 'enabled' %}readonly{% endif %}>
+          {% endif %}
+
+          <!-- Propriedades calculadas: só mostra, nunca envia -->
+          {% if field_name == 'dob' and fields.get('age') is not none %}
+            <div class="form-text text-muted">Idade: {{ fields.get('age') }} anos</div>
+          {% endif %}
+          {% if field_name == 'creation_date' and fields.get('age') is not none %}
+            <div class="form-text text-muted">Idade: {{ fields.get('age') }} anos</div>
+          {% endif %}
+
+        </div>
+      </div>
+    {% endfor %}
+
+    <!-- ── Botões de acção ─────────────────────────────────────────────────── -->
+    <div class="d-flex flex-wrap gap-2 mt-4 border-top pt-3">
+
+      <!-- Modo leitura -->
+      <button class="btn btn-outline-secondary btn-sm"
+              formaction="?option=edit"
+              {% if butshow == 'disabled' %}disabled{% endif %}>
+        <i class="bi bi-pencil me-1"></i>Editar
+      </button>
+      <button class="btn btn-outline-success btn-sm"
+              formaction="?option=insert"
+              {% if butshow == 'disabled' %}disabled{% endif %}>
+        <i class="bi bi-plus-circle me-1"></i>Inserir
+      </button>
+      <button class="btn btn-outline-danger btn-sm"
+              formaction="?option=delete"
+              onclick="return confirm('Confirma a eliminação?')"
+              {% if butshow == 'disabled' %}disabled{% endif %}>
+        <i class="bi bi-trash me-1"></i>Eliminar
+      </button>
+
+      <!-- Modo edição/inserção -->
+      <button class="btn btn-primary btn-sm"
+              formaction="?option=save"
+              {% if butedit == 'disabled' %}disabled{% endif %}>
+        <i class="bi bi-floppy me-1"></i>Guardar
+      </button>
+      <button class="btn btn-secondary btn-sm"
+              formaction="?option=cancel"
+              {% if butedit == 'disabled' %}disabled{% endif %}>
+        <i class="bi bi-x-circle me-1"></i>Cancelar
+      </button>
+    </div>
+
+  </form>
+
+  <!-- ── Navegação de registos ───────────────────────────────────────────── -->
+  <!--
+    Estes botões usam GET simples (links) porque só navegam —
+    não enviam dados do formulário.
+  -->
+  <div class="nav-record d-flex gap-2 mt-3 justify-content-center">
+    <a href="?option=first"    class="btn btn-outline-primary btn-sm"><i class="bi bi-skip-start-fill"></i></a>
+    <a href="?option=previous" class="btn btn-outline-primary btn-sm"><i class="bi bi-caret-left-fill"></i></a>
+    <a href="?option=next"     class="btn btn-outline-primary btn-sm"><i class="bi bi-caret-right-fill"></i></a>
+    <a href="?option=last"     class="btn btn-outline-primary btn-sm"><i class="bi bi-skip-end-fill"></i></a>
+  </div>
+
+</div>
+{% endblock %}

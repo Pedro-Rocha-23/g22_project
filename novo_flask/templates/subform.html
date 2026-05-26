@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block title %}{{ hheader }} — {{ lheader }}{% endblock %}
+
+{% block content %}
+<div class="main-card">
+
+  <!-- ── Título ─────────────────────────────────────────────────────────────── -->
+  <div class="d-flex align-items-center mb-3 border-bottom pb-2">
+    <h4 class="mb-0 me-auto">
+      <i class="bi bi-diagram-3 me-2 text-primary"></i>{{ hheader }}
+      <small class="text-muted fs-6 ms-1">→ {{ lheader }}</small>
+    </h4>
+    <small class="text-muted">{{ total }} registo(s)</small>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       CABEÇALHO — University (navegação + campos em readonly)
+  ═════════════════════════════════════════════════════════════════════════ -->
+  <div class="card border-0 bg-light p-3 mb-4">
+    <h6 class="text-primary mb-3"><i class="bi bi-building me-1"></i>{{ hheader }}</h6>
+
+    <div class="row g-2 mb-3">
+      {% for i in range(hatt|length) %}
+        {% set fname = hatt[i][1:] %}
+        <div class="col-md-4">
+          <label class="form-label small fw-semibold mb-1">{{ hdes[i] }}</label>
+          <input type="text" class="form-control form-control-sm"
+                 value="{{ hflds[fname] }}" readonly>
+        </div>
+      {% endfor %}
+      <!-- Idade calculada da universidade -->
+      {% if hflds.get('age') %}
+        <div class="col-md-2">
+          <label class="form-label small fw-semibold mb-1">Idade</label>
+          <input type="text" class="form-control form-control-sm"
+                 value="{{ hflds['age'] }} anos" readonly>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Navegação entre registos do cabeçalho -->
+    <div class="d-flex gap-2">
+      <a href="?option=first"    class="btn btn-outline-primary btn-sm"><i class="bi bi-skip-start-fill"></i></a>
+      <a href="?option=previous" class="btn btn-outline-primary btn-sm"><i class="bi bi-caret-left-fill"></i></a>
+      <a href="?option=next"     class="btn btn-outline-primary btn-sm"><i class="bi bi-caret-right-fill"></i></a>
+      <a href="?option=last"     class="btn btn-outline-primary btn-sm"><i class="bi bi-skip-end-fill"></i></a>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       LINHAS — Uni_grant (tabela com os financiamentos desta universidade)
+  ═════════════════════════════════════════════════════════════════════════ -->
+  <div class="d-flex align-items-center mb-2">
+    <h6 class="mb-0 me-auto text-secondary">
+      <i class="bi bi-cash-stack me-1"></i>{{ lheader }} desta universidade
+    </h6>
+    <!-- Botão para adicionar nova linha -->
+    <a href="?option=insert_line" class="btn btn-success btn-sm">
+      <i class="bi bi-plus-circle me-1"></i>Adicionar
+    </a>
+  </div>
+
+  <!-- Tabela de linhas -->
+  {% if lines %}
+  <div class="table-responsive mb-3">
+    <table class="table table-hover table-bordered align-middle text-center">
+      <thead class="table-primary">
+        <tr>
+          <th>Id</th>
+          <th>Grant</th>
+          <th>Montante (€)</th>
+          <th>Data de Início</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for line in lines %}
+        <tr>
+          <td>{{ line.id }}</td>
+          <td>{{ grant_map.get(line.grant_id, line.grant_id) }}</td>
+          <td>{{ '{:,.2f}'.format(line.amount) }}</td>
+          <td>{{ line.start_date }}</td>
+          <td>
+            <!-- Eliminar linha -->
+            <a href="?option=delete_line&line_id={{ line.id }}"
+               class="btn btn-outline-danger btn-sm"
+               onclick="return confirm('Eliminar este financiamento?')">
+              <i class="bi bi-trash"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot class="table-light">
+        <tr>
+          <td colspan="2" class="text-end fw-semibold">Total:</td>
+          <td class="fw-bold">
+            {{ '{:,.2f}'.format(lines | sum(attribute='amount')) }} €
+          </td>
+          <td colspan="2"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  {% else %}
+    <div class="alert alert-info py-2">
+      <i class="bi bi-info-circle me-1"></i>
+      Nenhum financiamento registado para esta universidade.
+    </div>
+  {% endif %}
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       FORMULÁRIO — Inserir / Editar linha
+       Só aparece quando butshow == 'disabled' (modo edição/inserção)
+  ═════════════════════════════════════════════════════════════════════════ -->
+  {% if butedit == 'enabled' %}
+  <div class="card border-primary mt-3">
+    <div class="card-header bg-primary text-white py-2">
+      <i class="bi bi-pencil-square me-1"></i>
+      {% if butshow == 'disabled' %}Novo Financiamento{% else %}Editar Financiamento{% endif %}
+    </div>
+    <div class="card-body">
+      <form method="post" action="">
+
+        <!-- Grant (dropdown) -->
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-semibold">Grant</label>
+          <div class="col-sm-9">
+            <select name="grant_id" class="form-select">
+              {% for gid, gtitle in grants %}
+                <option value="{{ gid }}">{{ gtitle }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <!-- Montante -->
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-semibold">Montante (€)</label>
+          <div class="col-sm-9">
+            <input type="number" step="0.01" min="0"
+                   class="form-control" name="amount" placeholder="ex: 50000.00">
+          </div>
+        </div>
+
+        <!-- Data de início -->
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-semibold">Data de Início</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="start_date"
+                   placeholder="dd/mm/aaaa">
+            <div class="form-text">Formato: dia/mês/ano — ex: 15/03/2024</div>
+          </div>
+        </div>
+
+        <!-- Botões -->
+        <div class="d-flex gap-2 pt-2 border-top">
+          <button class="btn btn-primary btn-sm" formaction="?option=save">
+            <i class="bi bi-floppy me-1"></i>Guardar
+          </button>
+          <a href="?option=cancel" class="btn btn-secondary btn-sm">
+            <i class="bi bi-x-circle me-1"></i>Cancelar
+          </a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
