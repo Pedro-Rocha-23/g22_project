@@ -28,18 +28,15 @@ prev_options = {
 
 
 def obj_id_value(item):
-    """Aceita ids diretos ou objetos e devolve o id."""
     return getattr(item, "id", item)
 
 
 def sort_by_id(cls):
-    """Garante que First/Next/Previous/Last seguem a ordem crescente do ID."""
     cls.lst.sort(key=lambda x: int(obj_id_value(x)))
     cls.pos = 0
 
 
 def iter_objects(cls):
-    """Percorre os objetos reais de uma classe Gclass."""
     for item in cls.lst:
         if hasattr(item, "id"):
             yield item
@@ -48,7 +45,6 @@ def iter_objects(cls):
 
 
 def current_obj(cls):
-    """Devolve o objeto atual da classe, se existir."""
     if len(cls.lst) == 0:
         return None
 
@@ -62,7 +58,6 @@ def current_obj(cls):
 
 
 def get_field(obj, possible_names):
-    """Lê atributo público ou privado, permitindo nomes alternativos."""
     for name in possible_names:
         if hasattr(obj, name):
             return getattr(obj, name)
@@ -75,7 +70,6 @@ def get_field(obj, possible_names):
 
 
 def set_field(obj, possible_names, value):
-    """Escreve atributo público ou privado, permitindo nomes alternativos."""
     for name in possible_names:
         if hasattr(obj.__class__, name):
             try:
@@ -162,7 +156,6 @@ def logged_user_group():
 
 
 def check_password(user, password):
-    """Validação simples para a tabela Userlogin com passwords em texto."""
     for obj in iter_objects(Userlogin):
         if str(get_user_name(obj)) == str(user):
             if str(get_user_password(obj)) == str(password):
