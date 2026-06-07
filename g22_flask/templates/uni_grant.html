@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Uni_grant{% endblock %}
+
+{% block content %}
+    <div class="dados">
+        <img src="{{ url_for('static', filename='images/Uni_grant.jpg') }}" alt="Uni_grant" width="200" height="200">
+        <h1>Uni_grant</h1>
+        <br>
+
+        <button id="edit" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=edit'" class="button1">Edit</button>
+        <button id="delete" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=delete'" class="button1">Delete</button>
+        <button id="insert" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=insert'" class="button1">Insert</button>
+        <button id="save" type="submit" form="form" {{ butedit }} class="button1">Save</button>
+        <button id="cancel" type="button" {{ butedit }} onclick="window.location.href = '{{ request.path }}?option=cancel'" class="button1">Cancel</button>
+        <button id="exit" type="button" {{ butshow }} onclick="window.location.href = '/'" class="button1">Exit</button>
+
+        <br><br>
+
+        <form id="form" action="{{ request.path }}?option=save" method="post">
+            <label for="id">Id:</label>
+            <input type="text" readonly id="id" name="id" value="{{ id }}" size="5">
+            <br><br>
+
+            <label for="university_id">University Id:</label>
+            <input type="text" {{ butedit }} id="university_id" name="university_id" value="{{ university_id }}" size="10">
+            <br><br>
+            <label for="grant_id">Grant Id:</label>
+            <input type="text" {{ butedit }} id="grant_id" name="grant_id" value="{{ grant_id }}" size="10">
+            <br><br>
+            <label for="amount">Amount:</label>
+            <input type="text" {{ butedit }} id="amount" name="amount" value="{{ amount }}" size="10">
+            <br><br>
+            <label for="start_date">Start Date:</label>
+            <input type="text" {{ butedit }} id="start_date" name="start_date" value="{{ start_date }}" size="10">
+            <br><br>
+        </form>
+
+        <br>
+
+        <button id="first" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=first'" class="button1">First</button>
+        <button id="previous" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=previous'" class="button1">Previous</button>
+        <button id="next" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=next'" class="button1">Next</button>
+        <button id="last" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=last'" class="button1">Last</button>
+
+        <br>
+        <p class="msg">{{ msg }}</p>
+    </div>
+{% endblock %}

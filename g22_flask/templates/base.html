@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Gestão de Bolsas, Universidades e Laboratórios{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  </head>
+
+  <body>
+    <nav>
+      <ul class="menu">
+        {% if ulogin == None %}
+          <li><a class="button" href="/">Home</a></li>
+          <li><a class="button" href="/login">Login</a></li>
+        {% else %}
+          <li><a class="button" href="/">Home</a></li>
+          <li><a class="button" href="/university">Universities</a></li>
+          <li><a class="button" href="/lab">Labs</a></li>
+          <li><a class="button" href="/grant">Grants</a></li>
+          <li><a class="button" href="/director">Directors</a></li>
+          <li><a class="button" href="/uni_grant">Uni Grants</a></li>
+          <li><a class="button" href="/analise">Análise</a></li>
+          <li><a class="button" href="/Userlogin">Users</a></li>
+          <li><a class="button" href="/logoff">Logoff</a></li>
+          <li><span class="button user-info">User: {{ ulogin }}</span></li>
+        {% endif %}
+      </ul>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Userlogin{% endblock %}
+
+{% block content %}
+    <div class="dados">
+        <br><br>
+        <img src="{{ url_for('static', filename='images/Userlogin.jpg') }}" alt="userlogin" width="200" height="200">
+        <h1>Userlogin</h1>
+        <br>
+
+        <button id="edit" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=edit'" class="button1">Edit</button>
+
+        {% if group == "admin" %}
+            <button id="delete" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=delete'" class="button1">Delete</button>
+            <button id="insert" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=insert'" class="button1">Insert</button>
+        {% endif %}
+
+        <button id="save" type="submit" form="form" {{ butedit }} class="button1">Save</button>
+        <button id="cancel" type="button" {{ butedit }} onclick="window.location.href = '{{ request.path }}?option=cancel'" class="button1">Cancel</button>
+        <button id="exit" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=exit'" class="button1">Exit</button>
+
+        <br><br>
+
+        <form id="form" action="{{ request.path }}?option=save" method="post">
+            <label for="id">Id:</label>
+            <input type="text" readonly id="id" name="id" value="{{ id }}" size="4">
+            <br><br>
+
+            <label for="user">User:</label>
+            {% if group == "admin" %}
+                <input type="text" {{ butedit }} id="user" name="user" value="{{ user }}" size="40">
+            {% else %}
+                <input type="text" readonly id="user" name="user" value="{{ user }}" size="40">
+            {% endif %}
+            <br><br>
+
+            <label for="usergroup">Group:</label>
+            {% if group == "admin" %}
+                <input type="text" {{ butedit }} id="usergroup" name="usergroup" value="{{ usergroup }}" size="40">
+            {% else %}
+                <input type="text" readonly id="usergroup" name="usergroup" value="{{ usergroup }}" size="40">
+            {% endif %}
+            <br><br>
+
+            <label for="password">Password:</label>
+            <input type="password" {{ butedit }} id="password" name="password" size="40">
+        </form>
+
+        <br>
+
+        {% if group == "admin" %}
+            <button id="first" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=first'" class="button1">First</button>
+            <button id="previous" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=previous'" class="button1">Previous</button>
+            <button id="next" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=next'" class="button1">Next</button>
+            <button id="last" type="button" {{ butshow }} onclick="window.location.href = '{{ request.path }}?option=last'" class="button1">Last</button>
+        {% endif %}
+
+        <br>
+        <p class="msg">{{ msg }}</p>
+    </div>
+{% endblock %}
