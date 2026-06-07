@@ -1,4 +1,4 @@
-# Class Director - generic version with inheritance
+
 from classes.gclass import Gclass
 import datetime
 class Director(Gclass):
@@ -6,7 +6,7 @@ class Director(Gclass):
     lst = list()
     pos = 0
     sortkey = ''
-    # Attribute director_director_names list, identifier attribute must be the first one and callled 'id'
+
     att = ['_id','_director_name','_dob']
     # Class header title
     header = 'Directors'
