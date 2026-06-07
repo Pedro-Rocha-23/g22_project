@@ -16,8 +16,7 @@ app.secret_key = "g22_secret_key"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "data", "g22_db.db")
 
-# Guarda a opção anterior de cada página.
-# Isto é preciso para saber se um Save vem depois de Insert ou de Edit.
+
 prev_options = {
     "university": "",
     "lab": "",
@@ -97,11 +96,11 @@ def set_field(obj, possible_names, value):
             setattr(obj, private_name, value)
             return
 
-    # Se não existir, cria usando o primeiro nome.
+
     setattr(obj, possible_names[0], value)
 
 
-# Ler dados da base de dados
+
 University.read(DB_PATH)
 Lab.read(DB_PATH)
 Grant.read(DB_PATH)
@@ -119,7 +118,7 @@ sort_by_id(Region)
 sort_by_id(Userlogin)
 
 
-# ── Funções auxiliares do login ──────────────────────────────────────────────
+
 def get_user_name(obj):
     return get_field(obj, ["user", "username"])
 
@@ -175,7 +174,7 @@ def check_password(user, password):
     return "Invalid user"
 
 
-# ── Rota principal / Home ────────────────────────────────────────────────────
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     if session.get("user") is None:
@@ -187,7 +186,7 @@ def index():
     )
 
 
-# ── Login ────────────────────────────────────────────────────────────────────
+
 @app.route("/login")
 def login():
     if session.get("user") is not None:
@@ -230,7 +229,7 @@ def chklogin():
     )
 
 
-# ── Função geral para as páginas das classes ─────────────────────────────────
+
 def class_page(cls, template_name, page_key, fields):
     if session.get("user") is None:
         return redirect(url_for("login"))
@@ -322,7 +321,8 @@ def university():
         "university",
         [
             ("name", ["name"]),
-            ("creation_date", ["creation_date"])
+            ("creation_date", ["creation_date"]),
+            ("region_id", ["region_id"])
         ]
     )
 
@@ -382,7 +382,7 @@ def uni_grant():
     )
 
 
-# ── Userlogin ────────────────────────────────────────────────────────────────
+
 @app.route("/Userlogin", methods=["GET", "POST"])
 def userlogin():
     if session.get("user") is None:
@@ -518,7 +518,7 @@ def userlogin():
     )
 
 
-# Rota para o Menu de Análise
+
 @app.route("/analise")
 def analise():
     return render_template("analise.html", ulogin=session.get("user"))
