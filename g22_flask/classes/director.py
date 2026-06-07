@@ -49,7 +49,7 @@ class Director(Gclass):
     @dob.setter
     def dob(self, dob):
         self._dob = dob
-    # salary property getter method
+    
     @property
     def age(self):
         tday = datetime.date.today()
