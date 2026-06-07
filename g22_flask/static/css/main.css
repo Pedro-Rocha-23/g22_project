@@ -1,17 +1,15 @@
-/* ==========================================
-   Configurações Globais e Cores
-   ========================================== */
+
 :root {
-    --primary-color: #2c3e50;    /* Azul escuro corporativo */
-    --accent-color: #4b8ebb;     /* Azul brilhante para links/destaques */
-    --success-color: #63ca4f;    /* Verde para botão Salvar */
-    --danger-color: #e74c3c;     /* Vermelho para botão Eliminar/Erros */
-    --bg-color: #f8f9fa;         /* Fundo cinza claro */
-    --card-bg: #ffffff;          /* Fundo dos blocos de dados */
-    --text-color: #333333;       /* Cor do texto principal */
+    --primary-color: #2c3e50;    
+    --accent-color: #4b8ebb;    
+    --success-color: #63ca4f;  
+    --danger-color: #e74c3c;   
+    --bg-color: #f8f9fa;        
+    --card-bg: #ffffff;          
+    --text-color: #333333;       
     --border-color: #ddd;
     --tittle-color: #b1daf2;
-           /* Cor das bordas */
+         
 }
 
 * {
@@ -27,9 +25,7 @@ body {
     min-height: 100vh;
 }
 
-/* ==========================================
-   Barra de Navegação (Navbar)
-   ========================================== */
+
 nav {
     background-color: var(--primary-color);
     padding: 0 20px;
@@ -64,20 +60,18 @@ nav {
     color: var(--accent-color);
 }
 
-/* Info do utilizador logado no canto direito */
+
 .menu li:last-child {
     margin-left: auto;
 }
 
 .user-info {
     font-weight: bold;
-    color: #4af5fb !important; /* Destaque cor de laranja para o user */
+    color: #4af5fb !important; 
     cursor: default;
 }
 
-/* ==========================================
-   Layout do Conteúdo (.dados)
-   ========================================== */
+
 .dados {
     max-width: 800px;
     margin: 40px auto;
@@ -88,7 +82,6 @@ nav {
     text-align: center;
 }
 
-/* Caixa especial para a Página Inicial */
 .caixa-home {
     padding: 100px 40px;
     background: linear-gradient(135deg, var(--tittle-color), var(--accent-color));
@@ -113,9 +106,7 @@ nav {
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* ==========================================
-   Formulários
-   ========================================== */
+
 form {
     max-width: 500px;
     margin: 30px auto;
@@ -159,9 +150,7 @@ form input[readonly] {
     border-style: dashed;
 }
 
-/* ==========================================
-   Botões de Ação (.button1)
-   ========================================== */
+
 .button1 {
     padding: 10px 20px;
     margin: 5px;
@@ -174,7 +163,6 @@ form input[readonly] {
     display: inline-block;
 }
 
-/* Cores específicas baseadas no ID do botão */
 #edit { background-color: #f1c40f; color: #fff; }
 #edit:hover { background-color: #d4ac0d; }
 
@@ -193,7 +181,7 @@ form input[readonly] {
 #exit { background-color: #34495e; color: #fff; }
 #exit:hover { background-color: #2c3e50; }
 
-/* Botões de Navegação (Primeiro, Anterior, Seguinte, Último) */
+
 #first, #previous, #next, #last {
     background-color: #e2e8f0;
     color: #4a5568;
@@ -203,14 +191,12 @@ form input[readonly] {
     color: #4e83d9;
 }
 
-/* Esconder botões que o Jinja2 desativa via atributo "disabled" */
+
 .button1[disabled] {
     display: none !important;
 }
 
-/* ==========================================
-   Mensagens de Feedback e Alertas
-   ========================================== */
+
 .msg {
     margin-top: 20px;
     padding: 10px;
@@ -221,16 +207,12 @@ form input[readonly] {
     display: inline-block;
 }
 
-/* Se a mensagem estiver vazia, não ocupa espaço */
+
 .msg:empty {
     display: none;
 }
 
-/* ==========================================
-   Estilos Extra para a Página do Dashboard
-   ========================================== */
 
-/* Contentor principal dos gráficos */
 .graficos-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
@@ -239,7 +221,6 @@ form input[readonly] {
     padding: 10px;
 }
 
-/* Cartão/Box que envolve cada gráfico do Plotly */
 .card-grafico {
     background: #ffffff;
     padding: 20px;
@@ -263,7 +244,7 @@ form input[readonly] {
     text-align: left;
 }
 
-/* Responsividade extra para ecrãs muito pequenos */
+
 @media (max-width: 500px) {
     .graficos-container {
         grid-template-columns: 1fr;
