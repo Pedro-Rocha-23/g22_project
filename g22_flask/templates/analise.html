@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+{% endblock %}
+
+{% block content %}
+    <h2 style="text-align: center; margin-top: 20px;">Menu de Análise</h2>
+    
+    <div style="display: flex; justify-content: center; gap: 40px; margin-top: 50px;">
+        
+        <a href="/analise/circular" style="text-decoration: none;">
+            <div style="width: 250px; height: 200px; background-color: #2c3e50; color: white; display: flex; align-items: center; justify-content: center; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0,0,0,0.3); font-size: 20px; font-weight: bold; text-align: center;">
+                Gráfico Circular
+            </div>
+        </a>
+
+        <a href="/analise/idades" style="text-decoration: none;">
+            <div style="width: 250px; height: 200px; background-color: #2980b9; color: white; display: flex; align-items: center; justify-content: center; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0,0,0,0.3); font-size: 20px; font-weight: bold; text-align: center;">
+                Histograma
+            </div>
+        </a>
+
+        <a href="/analise/linhas" style="text-decoration: none;">
+            <div style="width: 250px; height: 200px; background-color: #27ae60; color: white; display: flex; align-items: center; justify-content: center; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0,0,0,0.3); font-size: 20px; font-weight: bold; text-align: center;">
+                Gráfico Linhas
+            </div>
+        </a>
+        
+    </div>
+
+    <br><br>
+    <div style="text-align: center; margin-top: 40px;">
+        <a class="button" href="/">Menu Principal</a>
+    </div>
+{% endblock %}

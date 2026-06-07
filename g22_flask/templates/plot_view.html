@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+{% endblock %}
+
+{% block content %}
+    <div style="display: flex; justify-content: center; margin-top: 30px;">
+        {{ plot_div | safe }}
+    </div>
+    
+    <br>
+    
+    <div style="text-align: center; margin-top: 20px;">
+        <a class="button" href="/analise">Voltar à Análise</a>
+    </div>
+{% endblock %}
