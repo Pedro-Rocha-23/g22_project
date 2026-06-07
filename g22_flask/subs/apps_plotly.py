@@ -32,7 +32,7 @@ def grafico_idades_diretores():
     df['idade'] = ano_atual - df[coluna_data].dt.year
     df = df.dropna(subset=['idade'])
     
-    # Criar o histograma
+    
     fig = px.histogram(
         df, 
         x="idade", 
@@ -41,10 +41,10 @@ def grafico_idades_diretores():
         labels={'idade': 'Idade (Anos)', 'count': 'Nº de Diretores'}
     )
     
-    # Adicionar o contorno (outline) preto nas barras para melhor distinção
+    
     fig.update_traces(marker_line_color='black', marker_line_width=1.5)
     
-    # Forçar o eixo X de 30 a 75
+    
     fig.update_xaxes(range=[30, 75])
     
     return render_template("plot_view.html", plot_div=fig.to_html(full_html=False), ulogin=session.get("user"))
