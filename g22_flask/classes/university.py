@@ -2,7 +2,6 @@ from classes.gclass import Gclass
 import datetime
 from pathlib import Path
 
-
 class University(Gclass):
     obj = dict()
     lst = list()
@@ -61,6 +60,7 @@ class University(Gclass):
             age -= 1
 
         return age
+
     
     @property
     def region_id(self):
